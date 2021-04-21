@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="zh"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta><title>Maximizing Developer Effectiveness Review - 好奇编程博客 (OutOfMemory1024)</title><link rel="manifest" href="/manifest.json"><meta name="application-name" content="好奇编程博客 (OutOfMemory1024)"><meta name="msapplication-TileImage" content="/img/favicon.png"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="好奇编程博客 (OutOfMemory1024)"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="description" content="Tim Cochran, 06 January 2021 原文地址:https:&amp;#x2F;&amp;#x2F;martinfowler.com&amp;#x2F;articles&amp;#x2F;developer-effectiveness.html  背景这篇文章是一系列文章的开篇，作者观察到许多企业在引入新技术后，开发者的效能不增反降，作者认为这是由于新技术的复杂性和认知负担导致的。 通过研究，作者识别了开发者的关键反馈回路（key develop"><meta property="og:type" content="blog"><meta property="og:title" content="Maximizing Developer Effectiveness Review"><meta property="og:url" content="https://www.wang7x.com/2021-01-17-maximizing-developer-effectiveness-review/"><meta property="og:site_name" content="好奇编程博客 (OutOfMemory1024)"><meta property="og:description" content="Tim Cochran, 06 January 2021 原文地址:https:&amp;#x2F;&amp;#x2F;martinfowler.com&amp;#x2F;articles&amp;#x2F;developer-effectiveness.html  背景这篇文章是一系列文章的开篇，作者观察到许多企业在引入新技术后，开发者的效能不增反降，作者认为这是由于新技术的复杂性和认知负担导致的。 通过研究，作者识别了开发者的关键反馈回路（key develop"><meta property="og:locale" content="zh_CN"><meta property="og:image" content="https://www.wang7x.com/2021-01-17-maximizing-developer-effectiveness-review/micro-feedback-loops.png"><meta property="article:published_time" content="2021-01-16T16:00:00.000Z"><meta property="article:modified_time" content="2021-04-21T11:23:24.833Z"><meta property="article:author" content="Casey Wang"><meta property="article:tag" content="Development Effectiveness"><meta property="article:tag" content="DevOps"><meta property="twitter:card" content="summary"><meta property="twitter:image" content="/2021-01-17-maximizing-developer-effectiveness-review/micro-feedback-loops.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://www.wang7x.com/2021-01-17-maximizing-developer-effectiveness-review/"},"headline":"好奇编程博客 (OutOfMemory1024)","image":["https://www.wang7x.com/2021-01-17-maximizing-developer-effectiveness-review/micro-feedback-loops.png"],"datePublished":"2021-01-16T16:00:00.000Z","dateModified":"2021-04-21T11:23:24.833Z","author":{"@type":"Person","name":"Casey Wang"},"description":"Tim Cochran, 06 January 2021 原文地址:https:&#x2F;&#x2F;martinfowler.com&#x2F;articles&#x2F;developer-effectiveness.html  背景这篇文章是一系列文章的开篇，作者观察到许多企业在引入新技术后，开发者的效能不增反降，作者认为这是由于新技术的复杂性和认知负担导致的。 通过研究，作者识别了开发者的关键反馈回路（key develop"}</script><link rel="canonical" href="https://www.wang7x.com/2021-01-17-maximizing-developer-effectiveness-review/"><link rel="alternate" href="/atom.xml" title="好奇编程博客 (OutOfMemory1024)" type="application/atom+xml"><link rel="icon" href="/img/favicon.png"><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;600&amp;family=Source+Code+Pro"><link rel="stylesheet" href="/css/default.css"><style>body>.footer,body>.navbar,body>.section{opacity:0}</style><!--!--><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/css/lightgallery.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/css/justifiedGallery.min.css"><script src="https://www.googletagmanager.com/gtag/js?id=UA-86788643-1" async></script><script>window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+    
+        gtag('config', 'UA-86788643-1');</script><!--!--><script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script><!--!--><!--!--><meta name="generator" content="Hexo 5.4.0"></head><body class="is-3-column"><nav class="navbar navbar-main"><div class="container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="/"><img src="/img/logo.png" alt="好奇编程博客 (OutOfMemory1024)" height="28"></a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item" href="/">Home</a><a class="navbar-item" href="/archives">Archives</a><a class="navbar-item" href="/categories">Categories</a><a class="navbar-item" href="/tags">Tags</a></div><div class="navbar-end"><a class="navbar-item" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/wang7x/wang7x.github.io"><i class="fab fa-github"></i></a><a class="navbar-item is-hidden-tablet catalogue" title="目录" href="javascript:;"><i class="fas fa-list-ul"></i></a><a class="navbar-item search" title="搜索" href="javascript:;"><i class="fas fa-search"></i></a></div></div></div></nav><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-8-tablet is-8-desktop is-6-widescreen"><div class="card"><div class="card-image"><span class="image is-7by3"><img class="fill" src="/2021-01-17-maximizing-developer-effectiveness-review/micro-feedback-loops.png" alt="Maximizing Developer Effectiveness Review"></span></div><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2021-01-16T16:00:00.000Z" title="1/17/2021, 12:00:00 AM">2021-01-17</time>发表</span><span class="level-item"><time dateTime="2021-04-21T11:23:24.833Z" title="4/21/2021, 7:23:24 PM">2021-04-21</time>更新</span><span class="level-item"><a class="link-muted" href="/categories/arts/">ARTS</a><span> / </span><a class="link-muted" href="/categories/arts/review/">Review</a></span><span class="level-item">14 分钟读完 (大约2047个字)</span></div></div><h1 class="title is-3 is-size-4-mobile">Maximizing Developer Effectiveness Review</h1><div class="content"><blockquote>
+<p>Tim Cochran, 06 January 2021</p>
+<p>原文地址:<a target="_blank" rel="noopener" href="https://martinfowler.com/articles/developer-effectiveness.html">https://martinfowler.com/articles/developer-effectiveness.html</a></p>
+</blockquote>
+<h3 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h3><p>这篇文章是一系列文章的开篇，作者观察到许多企业在引入新技术后，开发者的效能不增反降，作者认为这是由于新技术的复杂性和认知负担导致的。</p>
+<p>通过研究，作者识别了开发者的关键反馈回路（key developer feedback loops），包括开发者每天重复200次的微反馈回路（micro-feedback loops），本系列文章试图引入一个最大化开发者效能的框架，通过优化这些回路提高开发者效能。</p>
+<span id="more"></span>
+
+<p>作者经常帮助转型中的组织，这些组织通常同时面临技术转型和文化转型，例如将宏服务拆分为微服务架构，建立独立迭代的团队和DevOps流水线，同时采取敏捷的产品开发以更快响应市场。</p>
+<p>但是这样的转型经常失败，经理们不满意交付延迟和预算超支，技术人员忙于解决各种绊脚石，生产效率低下，团队同时开展许多依赖项繁多的工作、认知超载、对新工具新流程缺乏掌握。最终向领导层承诺的成果无法兑现。</p>
+<p>作者认为主要的原因在于组织忽视了给开发人员提供高效的工作环境。在转型中引入了太多的新流程和新工具，给每日的工作带来了更大的复杂性和阻力。</p>
+<h3 id="高效工作环境中的开发人员"><a href="#高效工作环境中的开发人员" class="headerlink" title="高效工作环境中的开发人员"></a>高效工作环境中的开发人员</h3><p>作者假想了高效工作环境中的开发人员应该是怎么样的</p>
+<ul>
+<li>通过项目管理工具<strong>了解工作进展和当天工作内容</strong></li>
+<li>研发<strong>环境自动升级</strong>到最新版本，<strong>CI/CD</strong>通过</li>
+<li><strong>拉取最新代码</strong>，增量代码可以通过本地环境部署和单元测试<strong>快速验证</strong></li>
+<li>对于依赖其他团队提供的功能，能够通过开发者中心方便找到<strong>文档说明和API接口规格</strong></li>
+<li>几小时<strong>不受打扰</strong>的专注于自己的工作</li>
+<li>中途<strong>放松休息</strong></li>
+<li>提交代码，通过一系列<strong>自动化检查</strong>校验后部署到生产环境，<strong>灰度发布</strong>给用户，同时<strong>监控业务和运营指标变化</strong>。</li>
+</ul>
+<p>作者也列举了低效开发人员的工作是什么样的，大致就是陷入无尽的生产告警、问题排错、低效的沟通、无意义的会议等等，我就不详细列出了，大部分人看看自己每天的工作就有同感。</p>
+<p>对比我工作的体会，我将重点内容以黑体标识了，这些目标可以用来评估我们建立DevOps工作流程是否高效，至于用什么工具和方式达到是次要的，经常回顾一下可以是我们不至于陷入技术细节忘了初心。</p>
+<p>作者提到低效的组织工作起来摩擦更大，久而久之这种工作方式就被工程师习以为常了，大家会认为软件开发本身就是这样，这种现象叫习得性无助（learned helpless）。为了改变现状，低效的组织更倾向于寻求度量开发者开发产出的方法，常见的反模式是度量代码行数、需求产出数量和花费大量精力找出表现不好的人（Damn right，怀疑作者在监控我们^_^）。</p>
+<h3 id="开发者效能"><a href="#开发者效能" class="headerlink" title="开发者效能"></a>开发者效能</h3><p>作者提出更好的办法是关注于如何创造更好的高效工作环境，更顺畅的工作环境会给员工更多创新的机会。我赞同作者的观点，这是一种基于对员工信任的管理思路，但是国内大部分公司依然是一种不信任员工的思路在管理，依然把人视为流水线上的工具，我们为“鞭策”那一小部分员工牺牲了大多数人的创造性。</p>
+<h3 id="案例研究：Spotify"><a href="#案例研究：Spotify" class="headerlink" title="案例研究：Spotify"></a>案例研究：Spotify</h3><p>作者接下来列举了Spotify的例子，Spotify为了解决内部工具碎片化和开发信息不透明的问题，开发并开源了一套开发者门户项目<a target="_blank" rel="noopener" href="https://backstage.io/docs/getting-started/">Backstage</a>，去Backstage的官网看了下，提供服务目录、项目模板、技术文档等功能，同时有快速增长的插件生态，这跟我们去年在建设的架构资产管理平台很多诉求是相通的，肯定有许多理念和能力可以借鉴，要是早半年看到就更好了，虽然现在看到也不晚。</p>
+<p>接下来是最重要的部分，作者阐述了应该从哪些方面入手提高组织效能。</p>
+<p>常见的是建立DevOps文化等等，四个关键度量指标（前置时间、部署频率、平均修复时间、变更失败率）。</p>
+<h3 id="反馈回路（Feedback-Loops）"><a href="#反馈回路（Feedback-Loops）" class="headerlink" title="反馈回路（Feedback Loops）"></a>反馈回路（Feedback Loops）</h3><p>作者研究了一系列反馈回路，推荐专注于优化这些反馈回路来提高效率</p>
+<table>
+<thead>
+<tr>
+<th>反馈回路</th>
+<th>低效组织</th>
+<th>高效组织</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>验证本地代码修改的正确性</td>
+<td>2分钟</td>
+<td>5-15秒（根据技术栈）</td>
+</tr>
+<tr>
+<td>找到故障的根因</td>
+<td>4-7天</td>
+<td>1天</td>
+</tr>
+<tr>
+<td>验证组件集成的正确性</td>
+<td>3天-2周</td>
+<td>2小时</td>
+</tr>
+<tr>
+<td>验证变更是否满足非功能要求</td>
+<td>3个月</td>
+<td>1天到1周（根据变更范围大小）</td>
+</tr>
+<tr>
+<td>进入新团队后能够有效产出的时间</td>
+<td>2个月</td>
+<td>4周</td>
+</tr>
+<tr>
+<td>内部技术咨询得到回答的时间</td>
+<td>1-2周</td>
+<td>30分钟</td>
+</tr>
+<tr>
+<td>在生产发布一个新的服务</td>
+<td>2-4个月</td>
+<td>3天</td>
+</tr>
+<tr>
+<td>验证一项变更对客户有用</td>
+<td>6个月或者没办法</td>
+<td>1-4周 （根据变更范围大小）</td>
+</tr>
+</tbody></table>
+<p>就我的体会而言，这些选项并不是都特别典型，标准各个企业也不尽相同，例如验证本地代码正确性这一点，有的团队可能只要编译通过、代码检查通过就达标，有的团队可能要求主流程测试通过，因此需要根据企业的情况调整，这里的关键是借鉴这样贴合实际并且量化的思路，发掘适合自己的关键反馈回路。</p>
+<p>最后，作者介绍了微反馈回路，就是开发者每天会做几十上百次的操作，例如修复bug时反复运行单元测试、提交代码修改到本地环境、刷新环境数据等等，这些微反馈回路太细小通常容易被企业忽略。</p>
+<p>这让我深有体会，2020年我们的DevOps团队花了一个多月的时间，将每次代码提交增量检查的耗时从几分钟优化到几秒，耗费的精力不少，但是在企业层面很难看到这样工作的成绩和效果具体是什么。作者后续也提到了这一点，大致就是说每次优化的时间乘以频率就会有很大不同，从逻辑上我是认同的，但是实际工作中，高层管理人员尤其是非技术的管理人员，对此通常毫无理解。</p>
+<p>好了，这篇文章的信息含量其实很大，作者在文章中附带了许多概念的介绍链接例如习惯性无助、DevOps文化等等，也推荐了Accelerate等书籍和文章，值得慢慢消化，今天的文章评析就到这里，期待作者后续的文章。</p>
+<p><img src="/img/gongzhong.png" alt="微信扫一扫关注公众号"></p>
+</div><div class="article-licensing box"><div class="licensing-title"><p>Maximizing Developer Effectiveness Review</p><p><a href="https://www.wang7x.com/2021-01-17-maximizing-developer-effectiveness-review/">https://www.wang7x.com/2021-01-17-maximizing-developer-effectiveness-review/</a></p></div><div class="licensing-meta level is-mobile"><div class="level-left"><div class="level-item is-narrow"><div><h6>作者</h6><p>Casey Wang</p></div></div><div class="level-item is-narrow"><div><h6>发布于</h6><p>2021-01-17</p></div></div><div class="level-item is-narrow"><div><h6>更新于</h6><p>2021-04-21</p></div></div><div class="level-item is-narrow"><div><h6>许可协议</h6><p><a class="icon" rel="noopener" target="_blank" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a><a class="icon" rel="noopener" target="_blank" title="Attribution" href="https://creativecommons.org/licenses/by/4.0/"><i class="fab fa-creative-commons-by"></i></a><a class="icon" rel="noopener" target="_blank" title="Noncommercial" href="https://creativecommons.org/licenses/by-nc/4.0/"><i class="fab fa-creative-commons-nc"></i></a></p></div></div></div></div></div><div class="article-tags is-size-7 mb-4"><span class="mr-2">#</span><a class="link-muted mr-2" rel="tag" href="/tags/development-effectiveness/">Development Effectiveness</a><a class="link-muted mr-2" rel="tag" href="/tags/devops/">DevOps</a></div><div class="sharethis-inline-share-buttons"></div><script src="https://platform-api.sharethis.com/js/sharethis.js#property=607efc4a1e9e0f0018a56726&amp;product=inline-share-buttons" defer></script></article></div><div class="card"><div class="card-content"><h3 class="menu-label has-text-centered">喜欢这篇文章？打赏一下作者吧</h3><div class="buttons is-centered"><a class="button donate" data-type="alipay"><span class="icon is-small"><i class="fab fa-alipay"></i></span><span>支付宝</span><span class="qrcode"><img src="/img/alipay.png" alt="支付宝"></span></a><a class="button donate" data-type="wechat"><span class="icon is-small"><i class="fab fa-weixin"></i></span><span>微信</span><span class="qrcode"><img src="/img/wechat.png" alt="微信"></span></a></div></div></div><nav class="post-navigation mt-4 level is-mobile"><div class="level-start"><a class="article-nav-prev level level-item link-muted" href="/2021-01-17-guide-to-uuid-in-java/"><i class="level-item fas fa-chevron-left"></i><span class="level-item">Guide to UUID in Java</span></a></div><div class="level-end"><a class="article-nav-next level level-item link-muted" href="/2021-01-16-leaning-kafka-1/"><span class="level-item">OutOfMemory的Kafka学习笔记(1)</span><i class="level-item fas fa-chevron-right"></i></a></div></nav><div class="card"><div class="card-content"><h3 class="title is-5">评论</h3><div id="disqus_thread"><noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript></div><script>var disqus_config = function () {
+            this.page.url = 'https://www.wang7x.com/2021-01-17-maximizing-developer-effectiveness-review/';
+            this.page.identifier = 'wang7x';
+        };
+        (function() {
+            var d = document, s = d.createElement('script');  
+            s.src = '//' + 'wang7x' + '.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        })();</script></div></div></div><div class="column column-left is-4-tablet is-4-desktop is-3-widescreen  order-1"><div class="card widget" data-type="profile"><div class="card-content"><nav class="level"><div class="level-item has-text-centered flex-shrink-1"><div><figure class="image is-128x128 mx-auto mb-2"><img class="avatar" src="/img/logo.png" alt="Casey Wang"></figure><p class="title is-size-4 is-block" style="line-height:inherit;">Casey Wang</p><p class="is-size-6 is-block">吃货程序猿</p><p class="is-size-6 is-flex justify-content-center"><i class="fas fa-map-marker-alt mr-1"></i><span>Guangzhou &amp; Beijing</span></p></div></div></nav><nav class="level is-mobile"><div class="level-item has-text-centered is-marginless"><div><p class="heading">文章</p><a href="/archives"><p class="title">7</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">分类</p><a href="/categories"><p class="title">4</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">标签</p><a href="/tags"><p class="title">13</p></a></div></div></nav><div class="level"><a class="level-item button is-primary is-rounded" href="https://mp.weixin.qq.com/s?__biz=MzI2MTkwNjEzNw==&amp;mid=2247483655&amp;idx=1&amp;sn=8a129886476e0630c5b57fb896d2ad53&amp;chksm=ea520ab1dd2583a7546e4f334e7005bce7c40017bc39c206b2b2a71105319bab58e8342044d2&amp;token=2119397321&amp;lang=zh_CN#rd" target="_blank" rel="noopener">关注我</a></div><div class="level is-mobile is-multiline"><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Github" href="https://github.com/wang7x"><i class="fab fa-github"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="OSCHINA" href="https://my.oschina.net/wang7x"><i class="fab fa-osi"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="RSS" href="/atom.xml"><i class="fas fa-rss"></i></a></div></div></div><div class="card widget" data-type="categories"><div class="card-content"><div class="menu"><h3 class="menu-label">分类</h3><ul class="menu-list"><li><a class="level is-mobile" href="/categories/arts/"><span class="level-start"><span class="level-item">ARTS</span></span><span class="level-end"><span class="level-item tag">6</span></span></a><ul><li><a class="level is-mobile" href="/categories/arts/review/"><span class="level-start"><span class="level-item">Review</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/categories/arts/share/"><span class="level-start"><span class="level-item">Share</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/categories/arts/tip/"><span class="level-start"><span class="level-item">Tip</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li></ul></li></ul></div></div></div><div class="card widget" data-type="recent-posts"><div class="card-content"><h3 class="menu-label">最新文章</h3><article class="media"><figure class="media-left"><a class="image" href="/2021-01-28-ubuntu-20-04-hibernate/"><img src="/2021-01-28-ubuntu-20-04-hibernate/chip.jpeg" alt="Ubuntu 20.04 启用休眠(Hibernate)配置过程"></a></figure><div class="media-content"><p class="date"><time dateTime="2021-01-27T16:00:00.000Z">2021-01-28</time></p><p class="title"><a href="/2021-01-28-ubuntu-20-04-hibernate/">Ubuntu 20.04 启用休眠(Hibernate)配置过程</a></p><p class="categories"><a href="/categories/arts/">ARTS</a> / <a href="/categories/arts/tip/">Tip</a></p></div></article><article class="media"><figure class="media-left"><a class="image" href="/2021-01-26-linux-oom-killer/"><img src="/2021-01-26-linux-oom-killer/gun.jpg" alt="Linux OOM Killer"></a></figure><div class="media-content"><p class="date"><time dateTime="2021-01-25T16:00:00.000Z">2021-01-26</time></p><p class="title"><a href="/2021-01-26-linux-oom-killer/">Linux OOM Killer</a></p><p class="categories"><a href="/categories/arts/">ARTS</a> / <a href="/categories/arts/share/">Share</a></p></div></article><article class="media"><figure class="media-left"><a class="image" href="/2021-01-22-open-source-load-testing-tool-review-2020/"><img src="/2021-01-22-open-source-load-testing-tool-review-2020/best-open-source-load-testing-tools.png" alt="Open Source Load Testing Tool Review 2020"></a></figure><div class="media-content"><p class="date"><time dateTime="2021-01-21T16:00:00.000Z">2021-01-22</time></p><p class="title"><a href="/2021-01-22-open-source-load-testing-tool-review-2020/">Open Source Load Testing Tool Review 2020</a></p><p class="categories"><a href="/categories/arts/">ARTS</a> / <a href="/categories/arts/review/">Review</a></p></div></article><article class="media"><figure class="media-left"><a class="image" href="/2021-01-17-guide-to-uuid-in-java/"><img src="/2021-01-17-guide-to-uuid-in-java/java.png" alt="Guide to UUID in Java"></a></figure><div class="media-content"><p class="date"><time dateTime="2021-01-16T16:00:00.000Z">2021-01-17</time></p><p class="title"><a href="/2021-01-17-guide-to-uuid-in-java/">Guide to UUID in Java</a></p><p class="categories"><a href="/categories/arts/">ARTS</a> / <a href="/categories/arts/tip/">Tip</a></p></div></article><article class="media"><figure class="media-left"><a class="image" href="/2021-01-17-maximizing-developer-effectiveness-review/"><img src="/2021-01-17-maximizing-developer-effectiveness-review/micro-feedback-loops.png" alt="Maximizing Developer Effectiveness Review"></a></figure><div class="media-content"><p class="date"><time dateTime="2021-01-16T16:00:00.000Z">2021-01-17</time></p><p class="title"><a href="/2021-01-17-maximizing-developer-effectiveness-review/">Maximizing Developer Effectiveness Review</a></p><p class="categories"><a href="/categories/arts/">ARTS</a> / <a href="/categories/arts/review/">Review</a></p></div></article></div></div><div class="card widget" data-type="archives"><div class="card-content"><div class="menu"><h3 class="menu-label">归档</h3><ul class="menu-list"><li><a class="level is-mobile" href="/archives/2021/01/"><span class="level-start"><span class="level-item">一月 2021</span></span><span class="level-end"><span class="level-item tag">6</span></span></a></li><li><a class="level is-mobile" href="/archives/2016/11/"><span class="level-start"><span class="level-item">十一月 2016</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li></ul></div></div></div><div class="card widget" data-type="tags"><div class="card-content"><div class="menu"><h3 class="menu-label">标签</h3><div class="field is-grouped is-grouped-multiline"><div class="control"><a class="tags has-addons" href="/tags/apache-kafka/"><span class="tag">Apache Kafka</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/devops/"><span class="tag">DevOps</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/development-effectiveness/"><span class="tag">Development Effectiveness</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/distributed-streaming-platform/"><span class="tag">Distributed Streaming Platform</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/java/"><span class="tag">Java</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/linux/"><span class="tag">Linux</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/load-testing/"><span class="tag">Load Testing</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/memory-management/"><span class="tag">Memory Management</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/open-source/"><span class="tag">Open Source</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/operating-system/"><span class="tag">Operating System</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/performance-testing/"><span class="tag">Performance Testing</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/uuid/"><span class="tag">UUID</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/ubuntu/"><span class="tag">Ubuntu</span><span class="tag">1</span></a></div></div></div></div></div><div class="column-right-shadow is-hidden-widescreen is-sticky"></div></div><div class="column column-right is-4-tablet is-4-desktop is-3-widescreen is-hidden-touch is-hidden-desktop-only order-3 is-sticky"><div class="card widget" id="toc" data-type="toc"><div class="card-content"><div class="menu"><h3 class="menu-label">目录</h3><ul class="menu-list"><li><a class="level is-mobile" href="#背景"><span class="level-left"><span class="level-item">1</span><span class="level-item">背景</span></span></a></li><li><a class="level is-mobile" href="#高效工作环境中的开发人员"><span class="level-left"><span class="level-item">2</span><span class="level-item">高效工作环境中的开发人员</span></span></a></li><li><a class="level is-mobile" href="#开发者效能"><span class="level-left"><span class="level-item">3</span><span class="level-item">开发者效能</span></span></a></li><li><a class="level is-mobile" href="#案例研究：Spotify"><span class="level-left"><span class="level-item">4</span><span class="level-item">案例研究：Spotify</span></span></a></li><li><a class="level is-mobile" href="#反馈回路（Feedback-Loops）"><span class="level-left"><span class="level-item">5</span><span class="level-item">反馈回路（Feedback Loops）</span></span></a></li></ul></div></div><style>#toc .menu-list > li > a.is-active + .menu-list { display: block; }#toc .menu-list > li > a + .menu-list { display: none; }</style><script src="/js/toc.js" defer></script></div></div></div></div></section><footer class="footer"><div class="container"><div class="level"><div class="level-start"><a class="footer-logo is-block mb-2" href="/"><img src="/img/logo.png" alt="好奇编程博客 (OutOfMemory1024)" height="28"></a><p class="is-size-7"><span>&copy; 2021 Casey Wang</span>  Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> &amp; <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noopener">Icarus</a></p></div><div class="level-end"><div class="field has-addons"><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/"><i class="fab fa-creative-commons-by"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/wang7x/wang7x.github.io"><i class="fab fa-github"></i></a></p></div></div></div></div></footer><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script><script>moment.locale("zh-CN");</script><script>var IcarusThemeSettings = {
+            article: {
+                highlight: {
+                    clipboard: true,
+                    fold: 'unfolded'
+                }
+            }
+        };</script><script src="/js/column.js"></script><script src="/js/animation.js"></script><a id="back-to-top" title="回到顶端" href="javascript:;"><i class="fas fa-chevron-up"></i></a><script src="/js/back_to_top.js" defer></script><script src="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.js" defer></script><script>window.addEventListener("load", () => {
+      window.cookieconsent.initialise({
+        type: "info",
+        theme: "edgeless",
+        static: false,
+        position: "bottom-left",
+        content: {
+          message: "此网站使用Cookie来改善您的体验。",
+          dismiss: "知道了！",
+          allow: "允许使用Cookie",
+          deny: "拒绝",
+          link: "了解更多",
+          policy: "Cookie政策",
+          href: "https://www.cookiesandyou.com/",
+        },
+        palette: {
+          popup: {
+            background: "#edeff5",
+            text: "#838391"
+          },
+          button: {
+            background: "#4b81e8"
+          },
+        },
+      });
+    });</script><script src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/js/lightgallery.min.js" defer></script><script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js" defer></script><script>window.addEventListener("load", () => {
+            if (typeof $.fn.lightGallery === 'function') {
+                $('.article').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof $.fn.justifiedGallery === 'function') {
+                if ($('.justified-gallery > p > .gallery-item').length) {
+                    $('.justified-gallery > p > .gallery-item').unwrap();
+                }
+                $('.justified-gallery').justifiedGallery();
+            }
+        });</script><!--!--><!--!--><!--!--><!--!--><!--!--><script src="/js/main.js" defer></script><div class="searchbox"><div class="searchbox-container"><div class="searchbox-header"><div class="searchbox-input-container"><input class="searchbox-input" type="text" placeholder="想要查找什么..."></div><a class="searchbox-close" href="javascript:;">×</a></div><div class="searchbox-body"></div></div></div><script src="/js/insight.js" defer></script><script>document.addEventListener('DOMContentLoaded', function () {
+            loadInsight({"contentUrl":"/content.json"}, {"hint":"想要查找什么...","untitled":"(无标题)","posts":"文章","pages":"页面","categories":"分类","tags":"标签"});
+        });</script></body></html>

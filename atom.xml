@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>好奇编程博客 (OutOfMemory1024)</title>
+  <icon>https://www.wang7x.com/logo.png</icon>
+  <subtitle>Curious Programming Blog (OutOfMemory1024) - 吃货程序猿的探索</subtitle>
+  <link href="https://www.wang7x.com/atom.xml" rel="self"/>
+  
+  <link href="https://www.wang7x.com/"/>
+  <updated>2021-04-21T11:55:35.771Z</updated>
+  <id>https://www.wang7x.com/</id>
+  
+  <author>
+    <name>Casey Wang</name>
+    
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Ubuntu 20.04 启用休眠(Hibernate)配置过程</title>
+    <link href="https://www.wang7x.com/2021-01-28-ubuntu-20-04-hibernate/"/>
+    <id>https://www.wang7x.com/2021-01-28-ubuntu-20-04-hibernate/</id>
+    <published>2021-01-27T16:00:00.000Z</published>
+    <updated>2021-04-21T11:55:35.771Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;最近经常带笔记本回家工作，每次都需要先关闭打开的虚拟机、资料文档和开发环境，回家之后再打开，特别繁琐，所以研究了下Ubuntu 20.04（20.10）如何配置休眠模式。&lt;/p&gt;
+&lt;h3 id=&quot;基础&quot;&gt;&lt;a href=&quot;#基础&quot; class=&quot;headerlink&quot; title=&quot;基础&quot;&gt;&lt;/a&gt;基础&lt;/h3&gt;&lt;p&gt;广义来讲，在Linux中支持&lt;a href=&quot;https://wiki.archlinux.org/index.php/Power_management/Suspend_and_hibernate#Hibernation_into_swap_file&quot;&gt;三种睡眠模式&lt;/a&gt;，分别是:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;Suspend to RAM，即狭义的挂起（Suspend），本文后面提到挂起都是指这种模式。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Suspend to Disk，即我们常说的休眠（Hibernate）。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Suspend to Both，也被称作Hybrid Suspend，是上面两种模式的混合，兼具两种模式的优点（和缺点）。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Ubuntu桌面版默认只有挂起（Suspend）模式，没有启用休眠（Hibernate）模式。&lt;/p&gt;
+&lt;p&gt;挂起和休眠的目标都是保存冻结系统当前状态，后续需要时“快速”唤醒恢复，但是两者的实现方式是不同的。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="ARTS" scheme="https://www.wang7x.com/categories/arts/"/>
+    
+    <category term="Tip" scheme="https://www.wang7x.com/categories/arts/tip/"/>
+    
+    
+    <category term="Linux" scheme="https://www.wang7x.com/tags/linux/"/>
+    
+    <category term="Ubuntu" scheme="https://www.wang7x.com/tags/ubuntu/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Linux OOM Killer</title>
+    <link href="https://www.wang7x.com/2021-01-26-linux-oom-killer/"/>
+    <id>https://www.wang7x.com/2021-01-26-linux-oom-killer/</id>
+    <published>2021-01-25T16:00:00.000Z</published>
+    <updated>2021-04-21T11:33:11.504Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;今天介绍一个跟公众号名字很相关的Linux内存管理机制。&lt;/p&gt;
+&lt;h3 id=&quot;概念&quot;&gt;&lt;a href=&quot;#概念&quot; class=&quot;headerlink&quot; title=&quot;概念&quot;&gt;&lt;/a&gt;概念&lt;/h3&gt;&lt;p&gt;在软件故障中，&lt;a href=&quot;https://en.wikipedia.org/wiki/Out_of_memory&quot;&gt;Out-Of-Memory&lt;/a&gt;(OOM,系统可用内存不足)是最古老的故障之一，并且一直延续至今。&lt;/p&gt;
+&lt;p&gt;在早期的计算机系统中，内存小到以kb为单位，那时的程序员要精细的计算每一条指令的内存使用量，犹如在钢丝绳上表演杂技，稍有不慎就会出现内存不足导致软件或操作系统崩溃，但是即使限制那么苛刻，依然产生了许多伟大的软件，这也是这个公众号的名字由来。&lt;/p&gt;
+&lt;p&gt;即使今天的家用计算机内存已经至少8G起步，操作系统上运行的软件也会遇见OOM错误，Linux为了避免系统内存不足导致整个系统不可用，建立了一套OOM管理机制。&lt;/p&gt;
+&lt;p&gt;Linux的&lt;a href=&quot;https://www.kernel.org/doc/gorman/html/understand/understand016.html&quot;&gt;OOM管理机制&lt;/a&gt;会检测可用内存，在内存不足故障发生时选择性的杀死一个或者几个进程以释放内存，而执行这一任务的进程就被称作Linux Out-Of-Memory(OOM) Killer。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="ARTS" scheme="https://www.wang7x.com/categories/arts/"/>
+    
+    <category term="Share" scheme="https://www.wang7x.com/categories/arts/share/"/>
+    
+    
+    <category term="Linux" scheme="https://www.wang7x.com/tags/linux/"/>
+    
+    <category term="Operating System" scheme="https://www.wang7x.com/tags/operating-system/"/>
+    
+    <category term="Memory Management" scheme="https://www.wang7x.com/tags/memory-management/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Open Source Load Testing Tool Review 2020</title>
+    <link href="https://www.wang7x.com/2021-01-22-open-source-load-testing-tool-review-2020/"/>
+    <id>https://www.wang7x.com/2021-01-22-open-source-load-testing-tool-review-2020/</id>
+    <published>2021-01-21T16:00:00.000Z</published>
+    <updated>2021-04-21T11:23:28.537Z</updated>
+    
+    
+    <summary type="html">&lt;blockquote&gt;
+&lt;p&gt;Ragnar Lönn, 04 MARCH 2020&lt;/p&gt;
+&lt;p&gt;原文地址:&lt;a href=&quot;https://k6.io/blog/comparing-best-open-source-load-testing-tools&quot;&gt;https://k6.io/blog/comparing-best-open-source-load-testing-tools&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h3 id=&quot;摘要&quot;&gt;&lt;a href=&quot;#摘要&quot; class=&quot;headerlink&quot; title=&quot;摘要&quot;&gt;&lt;/a&gt;摘要&lt;/h3&gt;&lt;p&gt;今年想在DevOps平台上集成一些性能测试的工具，方便开发团队自助进行性能测试，调研了一些工具，分享其中一篇文章。&lt;/p&gt;
+&lt;p&gt;这篇文章的作者分别在17年和20年对市面上的性能测试工具进行了详细的比较和评测，内容非常翔实，他自己也是其中k6工具的作者。&lt;/p&gt;
+&lt;p&gt;文中参与评测的12款工具的清单如下：&lt;/p&gt;
+&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;Apachebench 2.3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;Artillery 1.6.0&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;Drill 0.5.0 (new)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;Gatling 3.3.1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;Hey 0.1.2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;Jmeter 5.2.1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;k6 0.26.0&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;Locust 0.13.5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;Siege 4.0.4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;Tsung 1.7.0&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;Vegeta 12.7.0&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;Wrk 4.1.0&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+
+&lt;p&gt;文章主要关注众多测试工具的两方面内容：一是性能表现如何，二是易用性如何。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="ARTS" scheme="https://www.wang7x.com/categories/arts/"/>
+    
+    <category term="Review" scheme="https://www.wang7x.com/categories/arts/review/"/>
+    
+    
+    <category term="Load Testing" scheme="https://www.wang7x.com/tags/load-testing/"/>
+    
+    <category term="Performance Testing" scheme="https://www.wang7x.com/tags/performance-testing/"/>
+    
+    <category term="Open Source" scheme="https://www.wang7x.com/tags/open-source/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Guide to UUID in Java</title>
+    <link href="https://www.wang7x.com/2021-01-17-guide-to-uuid-in-java/"/>
+    <id>https://www.wang7x.com/2021-01-17-guide-to-uuid-in-java/</id>
+    <published>2021-01-16T16:00:00.000Z</published>
+    <updated>2021-04-21T11:23:20.633Z</updated>
+    
+    
+    <summary type="html">&lt;blockquote&gt;
+&lt;p&gt;by baeldung&lt;/p&gt;
+&lt;p&gt;原文地址:&lt;a href=&quot;https://www.baeldung.com/java-uuid&quot;&gt;https://www.baeldung.com/java-uuid&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;最近没怎么写代码，简单复习一下Java的UUID知识点吧，原文来自于baeldung，这个网站有很多Java语言的技巧，经过我长期观察，内容相对各种中文博客是严谨靠谱很多的，可以日常看看，巩固知识。&lt;/p&gt;
+&lt;h3 id=&quot;1-概览&quot;&gt;&lt;a href=&quot;#1-概览&quot; class=&quot;headerlink&quot; title=&quot;1.概览&quot;&gt;&lt;/a&gt;1.概览&lt;/h3&gt;&lt;p&gt;Java中的UUID是一个128bit的值，通常用十六进制数字加”-“字符表示为长度36位的字符串，例如&lt;code&gt;123e4567-e89b-12d3-a456-556642440000&lt;/code&gt;，因为128bit是16字节，而一个字节可以表示为2个十六进制字符，”-“符号纯粹是为了可读性添加的，不实际存储于数据中。&lt;/p&gt;
+&lt;p&gt;UUID广泛用于表示全局唯一值的场景，但是并不是完全不会重复，只是重复的概率较小，在数据量较大和多服务器环境中要注意UUID可能出现重复。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="ARTS" scheme="https://www.wang7x.com/categories/arts/"/>
+    
+    <category term="Tip" scheme="https://www.wang7x.com/categories/arts/tip/"/>
+    
+    
+    <category term="Java" scheme="https://www.wang7x.com/tags/java/"/>
+    
+    <category term="UUID" scheme="https://www.wang7x.com/tags/uuid/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Maximizing Developer Effectiveness Review</title>
+    <link href="https://www.wang7x.com/2021-01-17-maximizing-developer-effectiveness-review/"/>
+    <id>https://www.wang7x.com/2021-01-17-maximizing-developer-effectiveness-review/</id>
+    <published>2021-01-16T16:00:00.000Z</published>
+    <updated>2021-04-21T11:23:24.833Z</updated>
+    
+    
+    <summary type="html">&lt;blockquote&gt;
+&lt;p&gt;Tim Cochran, 06 January 2021&lt;/p&gt;
+&lt;p&gt;原文地址:&lt;a href=&quot;https://martinfowler.com/articles/developer-effectiveness.html&quot;&gt;https://martinfowler.com/articles/developer-effectiveness.html&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h3 id=&quot;背景&quot;&gt;&lt;a href=&quot;#背景&quot; class=&quot;headerlink&quot; title=&quot;背景&quot;&gt;&lt;/a&gt;背景&lt;/h3&gt;&lt;p&gt;这篇文章是一系列文章的开篇，作者观察到许多企业在引入新技术后，开发者的效能不增反降，作者认为这是由于新技术的复杂性和认知负担导致的。&lt;/p&gt;
+&lt;p&gt;通过研究，作者识别了开发者的关键反馈回路（key developer feedback loops），包括开发者每天重复200次的微反馈回路（micro-feedback loops），本系列文章试图引入一个最大化开发者效能的框架，通过优化这些回路提高开发者效能。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="ARTS" scheme="https://www.wang7x.com/categories/arts/"/>
+    
+    <category term="Review" scheme="https://www.wang7x.com/categories/arts/review/"/>
+    
+    
+    <category term="Development Effectiveness" scheme="https://www.wang7x.com/tags/development-effectiveness/"/>
+    
+    <category term="DevOps" scheme="https://www.wang7x.com/tags/devops/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>OutOfMemory的Kafka学习笔记(1)</title>
+    <link href="https://www.wang7x.com/2021-01-16-leaning-kafka-1/"/>
+    <id>https://www.wang7x.com/2021-01-16-leaning-kafka-1/</id>
+    <published>2021-01-15T16:00:00.000Z</published>
+    <updated>2021-04-21T08:38:58.776Z</updated>
+    
+    
+    <summary type="html">&lt;h2 id=&quot;背景&quot;&gt;&lt;a href=&quot;#背景&quot; class=&quot;headerlink&quot; title=&quot;背景&quot;&gt;&lt;/a&gt;背景&lt;/h2&gt;&lt;p&gt;Kafka是Apache的顶级消息中间件项目，因为强大的处理能力，被广泛应用于大数据处理和日志采集等领域，发展的前景非常好。&lt;/p&gt;
+&lt;p&gt;我希望通过对Kafka的学习，深入了解流式数据处理的基本原理，为深入大数据领域的工作奠定基础。&lt;/p&gt;
+&lt;p&gt;同时也希望能够在金融业务处理中借鉴或引入相关思想和技术。&lt;/p&gt;
+&lt;h2 id=&quot;目标&quot;&gt;&lt;a href=&quot;#目标&quot; class=&quot;headerlink&quot; title=&quot;目标&quot;&gt;&lt;/a&gt;目标&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;理解Kafka的原理、架构和关键处理机制&lt;/li&gt;
+&lt;li&gt;掌握构建、部署和管理Kafka集群的技术&lt;/li&gt;
+&lt;li&gt;掌握Kafka的参数配置和应用编程&lt;/li&gt;
+&lt;li&gt;熟悉Kafka关键处理模块的源码&lt;/li&gt;
+&lt;li&gt;为Kafka开源项目贡献力量&lt;/li&gt;
+&lt;/ul&gt;</summary>
+    
+    
+    
+    <category term="ARTS" scheme="https://www.wang7x.com/categories/arts/"/>
+    
+    <category term="Share" scheme="https://www.wang7x.com/categories/arts/share/"/>
+    
+    
+    <category term="Apache Kafka" scheme="https://www.wang7x.com/tags/apache-kafka/"/>
+    
+    <category term="Distributed Streaming Platform" scheme="https://www.wang7x.com/tags/distributed-streaming-platform/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Hello World</title>
+    <link href="https://www.wang7x.com/2016-11-03-hello-world/"/>
+    <id>https://www.wang7x.com/2016-11-03-hello-world/</id>
+    <published>2016-11-02T16:00:00.000Z</published>
+    <updated>2021-04-21T11:25:23.244Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;Welcome to &lt;a href=&quot;https://hexo.io/&quot;&gt;Hexo&lt;/a&gt;! This is your very first post. Check &lt;a href=&quot;https://hexo.io/docs/&quot;&gt;documentation&lt;/a&gt;</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
+  
+</feed>

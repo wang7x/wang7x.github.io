@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="zh"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta><title>Ubuntu 20.04 启用休眠(Hibernate)配置过程 - 好奇编程博客 (OutOfMemory1024)</title><link rel="manifest" href="/manifest.json"><meta name="application-name" content="好奇编程博客 (OutOfMemory1024)"><meta name="msapplication-TileImage" content="/img/favicon.png"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="好奇编程博客 (OutOfMemory1024)"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="description" content="最近经常带笔记本回家工作，每次都需要先关闭打开的虚拟机、资料文档和开发环境，回家之后再打开，特别繁琐，所以研究了下Ubuntu 20.04（20.10）如何配置休眠模式。 基础广义来讲，在Linux中支持三种睡眠模式，分别是:  Suspend to RAM，即狭义的挂起（Suspend），本文后面提到挂起都是指这种模式。  Suspend to Disk，即我们常说的休眠（Hibernate）。"><meta property="og:type" content="blog"><meta property="og:title" content="Ubuntu 20.04 启用休眠(Hibernate)配置过程"><meta property="og:url" content="https://www.wang7x.com/2021-01-28-ubuntu-20-04-hibernate/"><meta property="og:site_name" content="好奇编程博客 (OutOfMemory1024)"><meta property="og:description" content="最近经常带笔记本回家工作，每次都需要先关闭打开的虚拟机、资料文档和开发环境，回家之后再打开，特别繁琐，所以研究了下Ubuntu 20.04（20.10）如何配置休眠模式。 基础广义来讲，在Linux中支持三种睡眠模式，分别是:  Suspend to RAM，即狭义的挂起（Suspend），本文后面提到挂起都是指这种模式。  Suspend to Disk，即我们常说的休眠（Hibernate）。"><meta property="og:locale" content="zh_CN"><meta property="og:image" content="https://www.wang7x.com/2021-01-28-ubuntu-20-04-hibernate/chip.jpeg"><meta property="article:published_time" content="2021-01-27T16:00:00.000Z"><meta property="article:modified_time" content="2021-04-21T11:55:35.771Z"><meta property="article:author" content="Casey Wang"><meta property="article:tag" content="Linux"><meta property="article:tag" content="Ubuntu"><meta property="twitter:card" content="summary"><meta property="twitter:image" content="/2021-01-28-ubuntu-20-04-hibernate/chip.jpeg"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://www.wang7x.com/2021-01-28-ubuntu-20-04-hibernate/"},"headline":"好奇编程博客 (OutOfMemory1024)","image":[],"datePublished":"2021-01-27T16:00:00.000Z","dateModified":"2021-04-21T11:55:35.771Z","author":{"@type":"Person","name":"Casey Wang"},"description":"最近经常带笔记本回家工作，每次都需要先关闭打开的虚拟机、资料文档和开发环境，回家之后再打开，特别繁琐，所以研究了下Ubuntu 20.04（20.10）如何配置休眠模式。 基础广义来讲，在Linux中支持三种睡眠模式，分别是:  Suspend to RAM，即狭义的挂起（Suspend），本文后面提到挂起都是指这种模式。  Suspend to Disk，即我们常说的休眠（Hibernate）。"}</script><link rel="canonical" href="https://www.wang7x.com/2021-01-28-ubuntu-20-04-hibernate/"><link rel="alternate" href="/atom.xml" title="好奇编程博客 (OutOfMemory1024)" type="application/atom+xml"><link rel="icon" href="/img/favicon.png"><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;600&amp;family=Source+Code+Pro"><link rel="stylesheet" href="/css/default.css"><style>body>.footer,body>.navbar,body>.section{opacity:0}</style><!--!--><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/css/lightgallery.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/css/justifiedGallery.min.css"><script src="https://www.googletagmanager.com/gtag/js?id=UA-86788643-1" async></script><script>window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+    
+        gtag('config', 'UA-86788643-1');</script><!--!--><script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script><!--!--><!--!--><meta name="generator" content="Hexo 5.4.0"></head><body class="is-3-column"><nav class="navbar navbar-main"><div class="container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="/"><img src="/img/logo.png" alt="好奇编程博客 (OutOfMemory1024)" height="28"></a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item" href="/">Home</a><a class="navbar-item" href="/archives">Archives</a><a class="navbar-item" href="/categories">Categories</a><a class="navbar-item" href="/tags">Tags</a></div><div class="navbar-end"><a class="navbar-item" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/wang7x/wang7x.github.io"><i class="fab fa-github"></i></a><a class="navbar-item is-hidden-tablet catalogue" title="目录" href="javascript:;"><i class="fas fa-list-ul"></i></a><a class="navbar-item search" title="搜索" href="javascript:;"><i class="fas fa-search"></i></a></div></div></div></nav><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-8-tablet is-8-desktop is-6-widescreen"><div class="card"><div class="card-image"><span class="image is-7by3"><img class="fill" src="/2021-01-28-ubuntu-20-04-hibernate/chip.jpeg" alt="Ubuntu 20.04 启用休眠(Hibernate)配置过程"></span></div><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2021-01-27T16:00:00.000Z" title="1/28/2021, 12:00:00 AM">2021-01-28</time>发表</span><span class="level-item"><time dateTime="2021-04-21T11:55:35.771Z" title="4/21/2021, 7:55:35 PM">2021-04-21</time>更新</span><span class="level-item"><a class="link-muted" href="/categories/arts/">ARTS</a><span> / </span><a class="link-muted" href="/categories/arts/tip/">Tip</a></span><span class="level-item">9 分钟读完 (大约1340个字)</span></div></div><h1 class="title is-3 is-size-4-mobile">Ubuntu 20.04 启用休眠(Hibernate)配置过程</h1><div class="content"><p>最近经常带笔记本回家工作，每次都需要先关闭打开的虚拟机、资料文档和开发环境，回家之后再打开，特别繁琐，所以研究了下Ubuntu 20.04（20.10）如何配置休眠模式。</p>
+<h3 id="基础"><a href="#基础" class="headerlink" title="基础"></a>基础</h3><p>广义来讲，在Linux中支持<a target="_blank" rel="noopener" href="https://wiki.archlinux.org/index.php/Power_management/Suspend_and_hibernate#Hibernation_into_swap_file">三种睡眠模式</a>，分别是:</p>
+<ul>
+<li><p>Suspend to RAM，即狭义的挂起（Suspend），本文后面提到挂起都是指这种模式。</p>
+</li>
+<li><p>Suspend to Disk，即我们常说的休眠（Hibernate）。</p>
+</li>
+<li><p>Suspend to Both，也被称作Hybrid Suspend，是上面两种模式的混合，兼具两种模式的优点（和缺点）。</p>
+</li>
+</ul>
+<p>Ubuntu桌面版默认只有挂起（Suspend）模式，没有启用休眠（Hibernate）模式。</p>
+<p>挂起和休眠的目标都是保存冻结系统当前状态，后续需要时“快速”唤醒恢复，但是两者的实现方式是不同的。</p>
+<span id="more"></span>
+
+<p>挂起时系统的运行数据仍然保存在内存（RAM，通常也叫MEM）中，所以系统还是会以较低的功耗消耗电池电量。这种状态下唤醒系统恢复非常快速，在普及SSD的现在是包括苹果在内很多操作系统的默认选项。</p>
+<p>休眠时系统的运行数据被写入磁盘（DISK），系统也会完全切断电源（大部分情况下），唤醒时需要先从硬盘读取数据到内存，因为恢复速度比挂起慢，实测甚至要慢于开机（20s vs 10s）。</p>
+<p>休眠的好处就是笔记本实际是关机状态，完全不耗电不发热，不用担心意外断电、进水和误触键盘唤醒系统，可以放心的携带和保存。</p>
+<p>Linux底层有两种实现来支持挂起和休眠，一种是内核（kernel）自带的swsusp，另一种是uswsusp(‘Userspace Software Suspend’) ，后者封装了前者，并且提供了更多的功能，通常swsusp已经够用了。</p>
+<p>swsusp的原理是向<code>/sys/power</code>目录中的文件写入特定的状态字符串来操作系统的状态。</p>
+<p>最重要的是<code>/sys/power/state</code>、<code>/sys/power/mem_sleep</code>、<code>/sys/power/disk</code>三个文件，分别保存了当前系统支持的睡眠模式、挂起方法、休眠方法，具体信息可以参考<a target="_blank" rel="noopener" href="https://www.kernel.org/doc/html/latest/admin-guide/pm/sleep-states.html">官方文档</a></p>
+<p>Systemd工具提供了睡眠管理的高级命令<code>systemctl suspend</code>、<code>systemctl hibernate</code>、<code>systemctl hybrid-sleep</code>。</p>
+<h3 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h3><ol>
+<li> 配置<code>/swapfile</code>，启用休眠需要比内存稍大的swap空间，推荐使用swapfile，从2.4内核开始，
+swapfile的性能已经不弱于swap分区，并且更容易调整大小，如果使用btrfs文件系统，需要内核升级到5.0以上才支持swapfile</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment"># 先关闭已有的swap空间</span></span><br><span class="line">sudo swapoff -a</span><br><span class="line"><span class="comment"># 分配连续的磁盘空间，fallocate比dd命令更安全快速，空间大小参考后面的表格</span></span><br><span class="line">sudo fallocate -l 20G /swapfile</span><br><span class="line"><span class="comment"># 修改权限</span></span><br><span class="line">sudo chmod 600 /swapfile</span><br><span class="line"><span class="comment"># 启用swapfile</span></span><br><span class="line">sudo mkswap /swapfile</span><br><span class="line">sudo swapon /swapfile</span><br><span class="line"><span class="comment"># 确认结果</span></span><br><span class="line">sudo swapon --show</span><br><span class="line">free</span><br></pre></td></tr></table></figure>
+
+<p>  swap文件的大小可以参考下面的<a target="_blank" rel="noopener" href="https://help.ubuntu.com/community/SwapFaq">表格</a></p>
+<table>
+<thead>
+<tr>
+<th>内存</th>
+<th>关闭休眠时swap空间大小</th>
+<th>启用休眠时swap空间大小</th>
+<th>最大swap空间大小</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>4GB</td>
+<td>2GB</td>
+<td>6GB</td>
+<td>8GB</td>
+</tr>
+<tr>
+<td>8GB</td>
+<td>3GB</td>
+<td>11GB</td>
+<td>16GB</td>
+</tr>
+<tr>
+<td>12GB</td>
+<td>3GB</td>
+<td>15GB</td>
+<td>24GB</td>
+</tr>
+<tr>
+<td>16GB</td>
+<td>4GB</td>
+<td>20GB</td>
+<td>32GB</td>
+</tr>
+<tr>
+<td>24GB</td>
+<td>5GB</td>
+<td>29GB</td>
+<td>48GB</td>
+</tr>
+<tr>
+<td>32GB</td>
+<td>6GB</td>
+<td>38GB</td>
+<td>64GB</td>
+</tr>
+<tr>
+<td>64GB</td>
+<td>8GB</td>
+<td>72GB</td>
+<td>128GB</td>
+</tr>
+</tbody></table>
+<ol start="2">
+<li> 文件系统启动时挂载<code>/swapfile</code></li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="string">&#x27;/swapfile swap swap defaults 0 0&#x27;</span> | sudo tee -a /etc/fstab</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li> 配置启动内核参数</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看swapfile的UUID</span></span><br><span class="line">sudo findmnt -no UUID -T /swapfile</span><br><span class="line"><span class="comment"># 查看swap_file_offset，忽略..符号</span></span><br><span class="line">sudo filefrag -v /swapfile | awk <span class="string">&#x27;&#123; if($1==&quot;0:&quot;)&#123;print substr($4, 1, length($4)-2)&#125; &#125;&#x27;</span></span><br><span class="line"><span class="comment"># 编辑grub文件</span></span><br><span class="line">sudo nano /etc/default/grub</span><br><span class="line"><span class="comment"># 将grub文件中GRUB_CMDLINE_LINUX_DEFAULT参数修改为如下形式</span></span><br><span class="line"><span class="comment"># 其中UUID和resume_offset的值更换为上面两个命令的输出</span></span><br><span class="line">GRUB_CMDLINE_LINUX_DEFAULT=<span class="string">&quot;quiet splash resume=UUID=51f8eab4-d775-4020-aace-0e411ef5b8ed resume_offset=34816&quot;</span></span><br><span class="line"><span class="comment"># 保存退出，然后更新grub配置</span></span><br><span class="line">sudo update-grub</span><br><span class="line"><span class="comment"># 编辑initramfs</span></span><br><span class="line">sudo nano /etc/initramfs-tools/conf.d/resume</span><br><span class="line"><span class="comment"># 加入下面一行，UUID替换为实际值</span></span><br><span class="line">resume=UUID=51f8eab4-d775-4020-aace-0e411ef5b8ed</span><br><span class="line"><span class="comment"># 保存退出，然后更新initramfs配置</span></span><br><span class="line">sudo update-initramfs -u</span><br><span class="line"><span class="comment"># 重启</span></span><br><span class="line">reboot</span><br></pre></td></tr></table></figure>
+
+<p>重启后执行<code>sudo systemctl hibernate</code>测试是否可以正常休眠。</p>
+<ol start="4">
+<li><p>配置Gnome界面</p>
+<p> 这时休眠功能已经生效，但是每次都需要输入命令太繁琐，我们需要<a target="_blank" rel="noopener" href="https://www.how2shout.com/linux/how-to-hibernate-ubuntu-20-04-lts-focal-fossa/">配置Gnome界面按钮</a></p>
+<p> 首先安装<a target="_blank" rel="noopener" href="https://extensions.gnome.org/extension/755/hibernate-status-button/">Hibernate Status Button插件</a></p>
+<p> 然后增加如下配置文件</p>
+</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 新建配置文件</span></span><br><span class="line">sudo nano /etc/polkit-1/localauthority/50-local.d/com.ubuntu.enable-hibernate.pkla</span><br><span class="line"><span class="comment"># 添加以下内容并保存</span></span><br><span class="line">[Re-enable hibernate by default <span class="keyword">in</span> upower]</span><br><span class="line">Identity=unix-user:*</span><br><span class="line">Action=org.freedesktop.upower.hibernate</span><br><span class="line">ResultActive=yes</span><br><span class="line"></span><br><span class="line">[Re-enable hibernate by default <span class="keyword">in</span> logind]</span><br><span class="line">Identity=unix-user:*</span><br><span class="line">Action=org.freedesktop.login1.hibernate;org.freedesktop.login1.handle-hibernate-key;org.freedesktop.login1;org.freedesktop.login1.hibernate-multiple-sessions;org.freedesktop.login1.hibernate-ignore-inhibit</span><br><span class="line">ResultActive=yes</span><br></pre></td></tr></table></figure>
+
+<p>重启后可以在菜单中看到挂起和休眠按钮了。</p>
+<p><img src="/img/gongzhong.png" alt="微信扫一扫关注公众号"></p>
+</div><div class="article-licensing box"><div class="licensing-title"><p>Ubuntu 20.04 启用休眠(Hibernate)配置过程</p><p><a href="https://www.wang7x.com/2021-01-28-ubuntu-20-04-hibernate/">https://www.wang7x.com/2021-01-28-ubuntu-20-04-hibernate/</a></p></div><div class="licensing-meta level is-mobile"><div class="level-left"><div class="level-item is-narrow"><div><h6>作者</h6><p>Casey Wang</p></div></div><div class="level-item is-narrow"><div><h6>发布于</h6><p>2021-01-28</p></div></div><div class="level-item is-narrow"><div><h6>更新于</h6><p>2021-04-21</p></div></div><div class="level-item is-narrow"><div><h6>许可协议</h6><p><a class="icon" rel="noopener" target="_blank" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a><a class="icon" rel="noopener" target="_blank" title="Attribution" href="https://creativecommons.org/licenses/by/4.0/"><i class="fab fa-creative-commons-by"></i></a><a class="icon" rel="noopener" target="_blank" title="Noncommercial" href="https://creativecommons.org/licenses/by-nc/4.0/"><i class="fab fa-creative-commons-nc"></i></a></p></div></div></div></div></div><div class="article-tags is-size-7 mb-4"><span class="mr-2">#</span><a class="link-muted mr-2" rel="tag" href="/tags/linux/">Linux</a><a class="link-muted mr-2" rel="tag" href="/tags/ubuntu/">Ubuntu</a></div><div class="sharethis-inline-share-buttons"></div><script src="https://platform-api.sharethis.com/js/sharethis.js#property=607efc4a1e9e0f0018a56726&amp;product=inline-share-buttons" defer></script></article></div><div class="card"><div class="card-content"><h3 class="menu-label has-text-centered">喜欢这篇文章？打赏一下作者吧</h3><div class="buttons is-centered"><a class="button donate" data-type="alipay"><span class="icon is-small"><i class="fab fa-alipay"></i></span><span>支付宝</span><span class="qrcode"><img src="/img/alipay.png" alt="支付宝"></span></a><a class="button donate" data-type="wechat"><span class="icon is-small"><i class="fab fa-weixin"></i></span><span>微信</span><span class="qrcode"><img src="/img/wechat.png" alt="微信"></span></a></div></div></div><nav class="post-navigation mt-4 level is-mobile"><div class="level-end"><a class="article-nav-next level level-item link-muted" href="/2021-01-26-linux-oom-killer/"><span class="level-item">Linux OOM Killer</span><i class="level-item fas fa-chevron-right"></i></a></div></nav><div class="card"><div class="card-content"><h3 class="title is-5">评论</h3><div id="disqus_thread"><noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript></div><script>var disqus_config = function () {
+            this.page.url = 'https://www.wang7x.com/2021-01-28-ubuntu-20-04-hibernate/';
+            this.page.identifier = 'wang7x';
+        };
+        (function() {
+            var d = document, s = d.createElement('script');  
+            s.src = '//' + 'wang7x' + '.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        })();</script></div></div></div><div class="column column-left is-4-tablet is-4-desktop is-3-widescreen  order-1"><div class="card widget" data-type="profile"><div class="card-content"><nav class="level"><div class="level-item has-text-centered flex-shrink-1"><div><figure class="image is-128x128 mx-auto mb-2"><img class="avatar" src="/img/logo.png" alt="Casey Wang"></figure><p class="title is-size-4 is-block" style="line-height:inherit;">Casey Wang</p><p class="is-size-6 is-block">吃货程序猿</p><p class="is-size-6 is-flex justify-content-center"><i class="fas fa-map-marker-alt mr-1"></i><span>Guangzhou &amp; Beijing</span></p></div></div></nav><nav class="level is-mobile"><div class="level-item has-text-centered is-marginless"><div><p class="heading">文章</p><a href="/archives"><p class="title">7</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">分类</p><a href="/categories"><p class="title">4</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">标签</p><a href="/tags"><p class="title">13</p></a></div></div></nav><div class="level"><a class="level-item button is-primary is-rounded" href="https://mp.weixin.qq.com/s?__biz=MzI2MTkwNjEzNw==&amp;mid=2247483655&amp;idx=1&amp;sn=8a129886476e0630c5b57fb896d2ad53&amp;chksm=ea520ab1dd2583a7546e4f334e7005bce7c40017bc39c206b2b2a71105319bab58e8342044d2&amp;token=2119397321&amp;lang=zh_CN#rd" target="_blank" rel="noopener">关注我</a></div><div class="level is-mobile is-multiline"><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Github" href="https://github.com/wang7x"><i class="fab fa-github"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="OSCHINA" href="https://my.oschina.net/wang7x"><i class="fab fa-osi"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="RSS" href="/atom.xml"><i class="fas fa-rss"></i></a></div></div></div><div class="card widget" data-type="categories"><div class="card-content"><div class="menu"><h3 class="menu-label">分类</h3><ul class="menu-list"><li><a class="level is-mobile" href="/categories/arts/"><span class="level-start"><span class="level-item">ARTS</span></span><span class="level-end"><span class="level-item tag">6</span></span></a><ul><li><a class="level is-mobile" href="/categories/arts/review/"><span class="level-start"><span class="level-item">Review</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/categories/arts/share/"><span class="level-start"><span class="level-item">Share</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/categories/arts/tip/"><span class="level-start"><span class="level-item">Tip</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li></ul></li></ul></div></div></div><div class="card widget" data-type="recent-posts"><div class="card-content"><h3 class="menu-label">最新文章</h3><article class="media"><figure class="media-left"><a class="image" href="/2021-01-28-ubuntu-20-04-hibernate/"><img src="/2021-01-28-ubuntu-20-04-hibernate/chip.jpeg" alt="Ubuntu 20.04 启用休眠(Hibernate)配置过程"></a></figure><div class="media-content"><p class="date"><time dateTime="2021-01-27T16:00:00.000Z">2021-01-28</time></p><p class="title"><a href="/2021-01-28-ubuntu-20-04-hibernate/">Ubuntu 20.04 启用休眠(Hibernate)配置过程</a></p><p class="categories"><a href="/categories/arts/">ARTS</a> / <a href="/categories/arts/tip/">Tip</a></p></div></article><article class="media"><figure class="media-left"><a class="image" href="/2021-01-26-linux-oom-killer/"><img src="/2021-01-26-linux-oom-killer/gun.jpg" alt="Linux OOM Killer"></a></figure><div class="media-content"><p class="date"><time dateTime="2021-01-25T16:00:00.000Z">2021-01-26</time></p><p class="title"><a href="/2021-01-26-linux-oom-killer/">Linux OOM Killer</a></p><p class="categories"><a href="/categories/arts/">ARTS</a> / <a href="/categories/arts/share/">Share</a></p></div></article><article class="media"><figure class="media-left"><a class="image" href="/2021-01-22-open-source-load-testing-tool-review-2020/"><img src="/2021-01-22-open-source-load-testing-tool-review-2020/best-open-source-load-testing-tools.png" alt="Open Source Load Testing Tool Review 2020"></a></figure><div class="media-content"><p class="date"><time dateTime="2021-01-21T16:00:00.000Z">2021-01-22</time></p><p class="title"><a href="/2021-01-22-open-source-load-testing-tool-review-2020/">Open Source Load Testing Tool Review 2020</a></p><p class="categories"><a href="/categories/arts/">ARTS</a> / <a href="/categories/arts/review/">Review</a></p></div></article><article class="media"><figure class="media-left"><a class="image" href="/2021-01-17-guide-to-uuid-in-java/"><img src="/2021-01-17-guide-to-uuid-in-java/java.png" alt="Guide to UUID in Java"></a></figure><div class="media-content"><p class="date"><time dateTime="2021-01-16T16:00:00.000Z">2021-01-17</time></p><p class="title"><a href="/2021-01-17-guide-to-uuid-in-java/">Guide to UUID in Java</a></p><p class="categories"><a href="/categories/arts/">ARTS</a> / <a href="/categories/arts/tip/">Tip</a></p></div></article><article class="media"><figure class="media-left"><a class="image" href="/2021-01-17-maximizing-developer-effectiveness-review/"><img src="/2021-01-17-maximizing-developer-effectiveness-review/micro-feedback-loops.png" alt="Maximizing Developer Effectiveness Review"></a></figure><div class="media-content"><p class="date"><time dateTime="2021-01-16T16:00:00.000Z">2021-01-17</time></p><p class="title"><a href="/2021-01-17-maximizing-developer-effectiveness-review/">Maximizing Developer Effectiveness Review</a></p><p class="categories"><a href="/categories/arts/">ARTS</a> / <a href="/categories/arts/review/">Review</a></p></div></article></div></div><div class="card widget" data-type="archives"><div class="card-content"><div class="menu"><h3 class="menu-label">归档</h3><ul class="menu-list"><li><a class="level is-mobile" href="/archives/2021/01/"><span class="level-start"><span class="level-item">一月 2021</span></span><span class="level-end"><span class="level-item tag">6</span></span></a></li><li><a class="level is-mobile" href="/archives/2016/11/"><span class="level-start"><span class="level-item">十一月 2016</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li></ul></div></div></div><div class="card widget" data-type="tags"><div class="card-content"><div class="menu"><h3 class="menu-label">标签</h3><div class="field is-grouped is-grouped-multiline"><div class="control"><a class="tags has-addons" href="/tags/apache-kafka/"><span class="tag">Apache Kafka</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/devops/"><span class="tag">DevOps</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/development-effectiveness/"><span class="tag">Development Effectiveness</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/distributed-streaming-platform/"><span class="tag">Distributed Streaming Platform</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/java/"><span class="tag">Java</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/linux/"><span class="tag">Linux</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/load-testing/"><span class="tag">Load Testing</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/memory-management/"><span class="tag">Memory Management</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/open-source/"><span class="tag">Open Source</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/operating-system/"><span class="tag">Operating System</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/performance-testing/"><span class="tag">Performance Testing</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/uuid/"><span class="tag">UUID</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/ubuntu/"><span class="tag">Ubuntu</span><span class="tag">1</span></a></div></div></div></div></div><div class="column-right-shadow is-hidden-widescreen is-sticky"></div></div><div class="column column-right is-4-tablet is-4-desktop is-3-widescreen is-hidden-touch is-hidden-desktop-only order-3 is-sticky"><div class="card widget" id="toc" data-type="toc"><div class="card-content"><div class="menu"><h3 class="menu-label">目录</h3><ul class="menu-list"><li><a class="level is-mobile" href="#基础"><span class="level-left"><span class="level-item">1</span><span class="level-item">基础</span></span></a></li><li><a class="level is-mobile" href="#配置"><span class="level-left"><span class="level-item">2</span><span class="level-item">配置</span></span></a></li></ul></div></div><style>#toc .menu-list > li > a.is-active + .menu-list { display: block; }#toc .menu-list > li > a + .menu-list { display: none; }</style><script src="/js/toc.js" defer></script></div></div></div></div></section><footer class="footer"><div class="container"><div class="level"><div class="level-start"><a class="footer-logo is-block mb-2" href="/"><img src="/img/logo.png" alt="好奇编程博客 (OutOfMemory1024)" height="28"></a><p class="is-size-7"><span>&copy; 2021 Casey Wang</span>  Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> &amp; <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noopener">Icarus</a></p></div><div class="level-end"><div class="field has-addons"><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/"><i class="fab fa-creative-commons-by"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/wang7x/wang7x.github.io"><i class="fab fa-github"></i></a></p></div></div></div></div></footer><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script><script>moment.locale("zh-CN");</script><script>var IcarusThemeSettings = {
+            article: {
+                highlight: {
+                    clipboard: true,
+                    fold: 'unfolded'
+                }
+            }
+        };</script><script src="/js/column.js"></script><script src="/js/animation.js"></script><a id="back-to-top" title="回到顶端" href="javascript:;"><i class="fas fa-chevron-up"></i></a><script src="/js/back_to_top.js" defer></script><script src="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.js" defer></script><script>window.addEventListener("load", () => {
+      window.cookieconsent.initialise({
+        type: "info",
+        theme: "edgeless",
+        static: false,
+        position: "bottom-left",
+        content: {
+          message: "此网站使用Cookie来改善您的体验。",
+          dismiss: "知道了！",
+          allow: "允许使用Cookie",
+          deny: "拒绝",
+          link: "了解更多",
+          policy: "Cookie政策",
+          href: "https://www.cookiesandyou.com/",
+        },
+        palette: {
+          popup: {
+            background: "#edeff5",
+            text: "#838391"
+          },
+          button: {
+            background: "#4b81e8"
+          },
+        },
+      });
+    });</script><script src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/js/lightgallery.min.js" defer></script><script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js" defer></script><script>window.addEventListener("load", () => {
+            if (typeof $.fn.lightGallery === 'function') {
+                $('.article').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof $.fn.justifiedGallery === 'function') {
+                if ($('.justified-gallery > p > .gallery-item').length) {
+                    $('.justified-gallery > p > .gallery-item').unwrap();
+                }
+                $('.justified-gallery').justifiedGallery();
+            }
+        });</script><!--!--><!--!--><!--!--><!--!--><!--!--><script src="/js/main.js" defer></script><div class="searchbox"><div class="searchbox-container"><div class="searchbox-header"><div class="searchbox-input-container"><input class="searchbox-input" type="text" placeholder="想要查找什么..."></div><a class="searchbox-close" href="javascript:;">×</a></div><div class="searchbox-body"></div></div></div><script src="/js/insight.js" defer></script><script>document.addEventListener('DOMContentLoaded', function () {
+            loadInsight({"contentUrl":"/content.json"}, {"hint":"想要查找什么...","untitled":"(无标题)","posts":"文章","pages":"页面","categories":"分类","tags":"标签"});
+        });</script></body></html>
