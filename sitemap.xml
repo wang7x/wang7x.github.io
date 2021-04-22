@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  
+  <url>
+    <loc>https://www.wang7x.com/2021-01-16-leaning-kafka-1/</loc>
+    
+    <lastmod>2021-04-22</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://www.wang7x.com/2021-01-17-guide-to-uuid-in-java/</loc>
+    
+    <lastmod>2021-04-22</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://www.wang7x.com/2021-01-17-maximizing-developer-effectiveness-review/</loc>
+    
+    <lastmod>2021-04-22</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://www.wang7x.com/2021-01-22-open-source-load-testing-tool-review-2020/</loc>
+    
+    <lastmod>2021-04-22</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://www.wang7x.com/2021-01-26-linux-oom-killer/</loc>
+    
+    <lastmod>2021-04-22</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://www.wang7x.com/2021-01-28-ubuntu-20-04-hibernate/</loc>
+    
+    <lastmod>2021-04-22</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://www.wang7x.com/2016-11-03-hello-world/</loc>
+    
+    <lastmod>2021-04-21</lastmod>
+    
+  </url>
+  
+
+  <url>
+    <loc>https://www.wang7x.com/</loc>
+    <lastmod>2021-04-22</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+  </url>
+
+  
+  <url>
+    <loc>https://www.wang7x.com/tags/apache-kafka/</loc>
+    <lastmod>2021-04-22</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.wang7x.com/tags/distributed-streaming-platform/</loc>
+    <lastmod>2021-04-22</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.wang7x.com/tags/java/</loc>
+    <lastmod>2021-04-22</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.wang7x.com/tags/uuid/</loc>
+    <lastmod>2021-04-22</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.wang7x.com/tags/development-effectiveness/</loc>
+    <lastmod>2021-04-22</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.wang7x.com/tags/devops/</loc>
+    <lastmod>2021-04-22</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.wang7x.com/tags/load-testing/</loc>
+    <lastmod>2021-04-22</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.wang7x.com/tags/performance-testing/</loc>
+    <lastmod>2021-04-22</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.wang7x.com/tags/open-source/</loc>
+    <lastmod>2021-04-22</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.wang7x.com/tags/linux/</loc>
+    <lastmod>2021-04-22</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.wang7x.com/tags/operating-system/</loc>
+    <lastmod>2021-04-22</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.wang7x.com/tags/memory-management/</loc>
+    <lastmod>2021-04-22</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.wang7x.com/tags/ubuntu/</loc>
+    <lastmod>2021-04-22</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+
+  
+  <url>
+    <loc>https://www.wang7x.com/categories/arts/</loc>
+    <lastmod>2021-04-22</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.wang7x.com/categories/arts/review/</loc>
+    <lastmod>2021-04-22</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.wang7x.com/categories/arts/share/</loc>
+    <lastmod>2021-04-22</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.wang7x.com/categories/arts/tip/</loc>
+    <lastmod>2021-04-22</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+</urlset>
