@@ -6,7 +6,7 @@
   <link href="https://www.wang7x.com/atom.xml" rel="self"/>
   
   <link href="https://www.wang7x.com/"/>
-  <updated>2021-04-21T11:55:35.771Z</updated>
+  <updated>2021-04-22T02:12:48.647Z</updated>
   <id>https://www.wang7x.com/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="https://www.wang7x.com/2021-01-28-ubuntu-20-04-hibernate/"/>
     <id>https://www.wang7x.com/2021-01-28-ubuntu-20-04-hibernate/</id>
     <published>2021-01-27T16:00:00.000Z</published>
-    <updated>2021-04-21T11:55:35.771Z</updated>
+    <updated>2021-04-22T02:12:48.647Z</updated>
     
     
     <summary type="html">&lt;p&gt;最近经常带笔记本回家工作，每次都需要先关闭打开的虚拟机、资料文档和开发环境，回家之后再打开，特别繁琐，所以研究了下Ubuntu 20.04（20.10）如何配置休眠模式。&lt;/p&gt;
@@ -55,7 +55,7 @@
     <link href="https://www.wang7x.com/2021-01-26-linux-oom-killer/"/>
     <id>https://www.wang7x.com/2021-01-26-linux-oom-killer/</id>
     <published>2021-01-25T16:00:00.000Z</published>
-    <updated>2021-04-21T11:33:11.504Z</updated>
+    <updated>2021-04-22T02:23:38.605Z</updated>
     
     
     <summary type="html">&lt;p&gt;今天介绍一个跟公众号名字很相关的Linux内存管理机制。&lt;/p&gt;
@@ -84,7 +84,7 @@
     <link href="https://www.wang7x.com/2021-01-22-open-source-load-testing-tool-review-2020/"/>
     <id>https://www.wang7x.com/2021-01-22-open-source-load-testing-tool-review-2020/</id>
     <published>2021-01-21T16:00:00.000Z</published>
-    <updated>2021-04-21T11:23:28.537Z</updated>
+    <updated>2021-04-22T02:23:46.541Z</updated>
     
     
     <summary type="html">&lt;blockquote&gt;
@@ -118,7 +118,7 @@
     <link href="https://www.wang7x.com/2021-01-17-guide-to-uuid-in-java/"/>
     <id>https://www.wang7x.com/2021-01-17-guide-to-uuid-in-java/</id>
     <published>2021-01-16T16:00:00.000Z</published>
-    <updated>2021-04-21T11:23:20.633Z</updated>
+    <updated>2021-04-22T02:24:02.477Z</updated>
     
     
     <summary type="html">&lt;blockquote&gt;
@@ -147,7 +147,7 @@
     <link href="https://www.wang7x.com/2021-01-17-maximizing-developer-effectiveness-review/"/>
     <id>https://www.wang7x.com/2021-01-17-maximizing-developer-effectiveness-review/</id>
     <published>2021-01-16T16:00:00.000Z</published>
-    <updated>2021-04-21T11:23:24.833Z</updated>
+    <updated>2021-04-22T02:23:55.001Z</updated>
     
     
     <summary type="html">&lt;blockquote&gt;
@@ -175,7 +175,7 @@
     <link href="https://www.wang7x.com/2021-01-16-leaning-kafka-1/"/>
     <id>https://www.wang7x.com/2021-01-16-leaning-kafka-1/</id>
     <published>2021-01-15T16:00:00.000Z</published>
-    <updated>2021-04-21T08:38:58.776Z</updated>
+    <updated>2021-04-22T02:24:13.400Z</updated>
     
     
     <summary type="html">&lt;h2 id=&quot;背景&quot;&gt;&lt;a href=&quot;#背景&quot; class=&quot;headerlink&quot; title=&quot;背景&quot;&gt;&lt;/a&gt;背景&lt;/h2&gt;&lt;p&gt;Kafka是Apache的顶级消息中间件项目，因为强大的处理能力，被广泛应用于大数据处理和日志采集等领域，发展的前景非常好。&lt;/p&gt;
